@@ -1,18 +1,18 @@
 import React, { useMemo } from "react";
 import { getPastelColors } from "../../lib/colors";
 
-interface Ingredient {
-  name: string;
-  measure: string;
-  color?: string;
-}
-
 interface IngredientsLegendProps {
-  ingredients: Ingredient[];
+  drink: {
+    ingredients: {
+      name: string;
+      rawMeasure: string | null;
+      amountForRatio?: number;
+    }[];
+  };
 }
 
 const IngredientsLegend: React.FC<IngredientsLegendProps> = ({
-  ingredients,
+  drink: { ingredients },
 }) => {
   //useMemo to avoid regenerating colors (and thus keep colors consistent) on every render
   const legendColors = useMemo(() => {
@@ -36,7 +36,7 @@ const IngredientsLegend: React.FC<IngredientsLegendProps> = ({
             />
 
             <span className="wrap-break-word flex-1">
-              {item.name} {item.rawMeasure && `(${item.rawMeasure.trim(" ")})`}
+              {item.name} {item.rawMeasure && `(${item.rawMeasure.trim()})`}
             </span>
           </li>
         ))}

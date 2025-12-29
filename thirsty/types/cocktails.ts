@@ -16,7 +16,7 @@ export interface Ingredient {
 export interface Cocktail {
   id: string;
   name: string;
-  image: string | null;
+  image: string;
   instructions: string;
   ingredients: Ingredient[];
 }

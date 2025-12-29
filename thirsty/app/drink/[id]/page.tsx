@@ -20,7 +20,7 @@ const DrinkDetailPage: React.FC = () => {
     data: drink,
     isLoading,
     isError,
-  } = useQuery<Cocktail | null>({
+  } = useQuery<Cocktail | undefined>({
     queryKey: ["cocktail", id],
     queryFn: () => getCocktailById(id),
     enabled: !!id, // only run if id is defined
@@ -49,12 +49,12 @@ const DrinkDetailPage: React.FC = () => {
   return (
     <Shell title={`Thirsty - ${drink.name}`}>
       <div className="mx-auto max-w-lg py-6 text-black">
-        <DrinkHeader drink={drink} image={drink.image} />
+        <DrinkHeader drink={drink} />
         <div className="flex items-center flex-row">
-          <IngredientsLegend ingredients={drink.ingredients} />
-          <IngredientsPie ingredients={drink.ingredients} />
+          <IngredientsLegend drink={drink} />
+          <IngredientsPie drink={drink} />
         </div>
-        <Instructions instructions={drink.instructions} />
+        <Instructions drink={drink} />
       </div>
     </Shell>
   );

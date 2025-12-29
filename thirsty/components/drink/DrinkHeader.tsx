@@ -2,14 +2,14 @@ import React from "react";
 import Image from "next/image";
 
 interface DrinkHeaderProps {
-  name: string;
-  category?: string;
-  image?: string;
-  alcoholic?: string;
+  drink: {
+    name: string;
+    image: string;
+  };
 }
 
 const DrinkHeader: React.FC<DrinkHeaderProps> = ({
-  drink: { name, category, image, alcoholic },
+  drink: { name, image },
 }) => {
   return (
     <header className="mb-6 flex flex-col items-center">
