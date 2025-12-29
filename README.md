@@ -1,4 +1,4 @@
-# Thirsty 🍹
+# Thirsty 
 
 A modern cocktail discovery app built with **Next.js**, **TypeScript**, and **TanStack Query**. Search for drinks by name, explore their ingredients, and view ingredient ratios visualized in a simple pie chart.
 
@@ -6,7 +6,7 @@ Built with AI support from **Claude Code**, powered by [TheCocktailDB API](https
 
 ---
 
-## ✨ Features
+## Features
 
 - **Live drink search** by name
 - **Drink detail page** with:
@@ -20,7 +20,7 @@ Built with AI support from **Claude Code**, powered by [TheCocktailDB API](https
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -95,7 +95,7 @@ thirsty/
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
@@ -108,7 +108,7 @@ thirsty/
 
 ---
 
-## 🧠 Design Decisions
+## Design Decisions
 
 ### Keep data access simple and local
 
@@ -136,7 +136,7 @@ The app favors straightforward patterns and small components, prioritizing clari
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Unit tests focus on the most error-prone logic:
 
@@ -154,7 +154,7 @@ Tests are located in [tests/parseIngredients.test.ts](thirsty/tests/parseIngredi
 
 ---
 
-## 🤖 Built with Claude Code
+## Built with Claude Code
 
 This project was built with assistance from [Claude Code](https://claude.com/claude-code), demonstrating modern patterns for:
 
