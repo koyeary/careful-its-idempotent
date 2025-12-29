@@ -5,7 +5,7 @@ import type { Cocktail } from "@/types/cocktails";
 interface DrinkListProps {
   drinks: Cocktail[];
   loading?: boolean;
-  onDrinkClick?: (drinkId: string) => void;
+  onDrinkClick: (drinkId: string) => void;
 }
 
 const DrinkList: React.FC<DrinkListProps> = ({
@@ -27,13 +27,9 @@ const DrinkList: React.FC<DrinkListProps> = ({
 
   return (
     <div className="mt-4">
-      <ul className="space-y-3">
+      <ul>
         {drinks.map((drink) => (
-          <DrinkListItem
-            key={drink.id}
-            drink={drink}
-            onClick={onDrinkClick}
-          />
+          <DrinkListItem key={drink.id} drink={drink} onClick={onDrinkClick} />
         ))}
       </ul>
     </div>

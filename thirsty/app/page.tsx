@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
 import { searchCocktailsByName } from "@/lib/api";
@@ -11,6 +12,7 @@ import SearchBar from "@/components/search/SearchBar";
 import DrinkList from "@/components/search/DrinkList";
 
 export default function HomePage() {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [debounced, setDebounced] = useState("");
 
@@ -18,6 +20,10 @@ export default function HomePage() {
     const id = setTimeout(() => setDebounced(query), 300);
     return () => clearTimeout(id);
   }, [query]);
+
+  const onDrinkClick = (drinkId: string) => {
+    router.push(`/drink/${drinkId}`);
+  };
 
   const {
     data: drinks = [],
@@ -41,7 +47,11 @@ export default function HomePage() {
             {error?.message ?? "Something went wrong."}
           </p>
         ) : null}
-        <DrinkList drinks={drinks} loading={isLoading} />
+        <DrinkList
+          onDrinkClick={onDrinkClick}
+          drinks={drinks}
+          loading={isLoading}
+        />
       </div>
     </Shell>
   );

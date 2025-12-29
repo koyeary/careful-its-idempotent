@@ -9,7 +9,7 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({
   value,
   onChange,
-  placeholder = "Search for cocktails...",
+  placeholder = "Find a drink",
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
