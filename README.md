@@ -2,6 +2,8 @@
 
 A modern cocktail discovery app built with **Next.js**, **TypeScript**, and **TanStack Query**. Search for drinks by name, explore their ingredients, and view ingredient ratios visualized in a simple pie chart.
 
+See the demo in deployment at: [Thirsty](https://careful-its-idempotent-git-vercel-koyearys-projects.vercel.app/)
+
 Built with AI support from **Claude Code**, powered by [TheCocktailDB API](https://www.thecocktaildb.com/).
 
 ---
