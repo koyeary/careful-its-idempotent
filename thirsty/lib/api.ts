@@ -16,7 +16,7 @@ const mapCocktail = (d: CocktailApi): Cocktail => {
   return {
     id: d.idDrink,
     name: d.strDrink,
-    image: d.strDrinkThumb,
+    image: d.strDrinkThumb ?? "",
     instructions: d.strInstructions ?? "",
     ingredients,
   };
@@ -41,7 +41,9 @@ export const searchCocktailsByName = async (
   return data.drinks.map(mapCocktail);
 };
 
-export const getCocktailById = async (id: string): Promise<Cocktail | null> => {
+export const getCocktailById = async (
+  id: string
+): Promise<Cocktail | undefined> => {
   console.log(id);
   const res = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
@@ -49,6 +51,6 @@ export const getCocktailById = async (id: string): Promise<Cocktail | null> => {
   if (!res.ok) throw new Error("Failed to fetch cocktail");
   const data = await res.json();
 
-  if (!data.drinks?.[0]) return null;
+  if (!data.drinks?.[0]) return undefined;
   return mapCocktail(data.drinks[0]);
 };

@@ -1,14 +1,14 @@
 "use client";
-
+import React from "react";
 import { Ingredient } from "@/types/cocktails";
 import { PieChart, Pie, Cell } from "recharts";
 import { getPastelColors } from "@/lib/colors";
 
-export default function IngredientsPie({
-  ingredients,
-}: {
-  ingredients: Ingredient[];
-}) {
+const IngredientsPie: React.FC<{ drink: { ingredients: Ingredient[] } }> = ({
+  drink,
+}) => {
+  const { ingredients } = drink;
+
   if (!ingredients.length) return null;
 
   // Separate ingredients with and without valid amountForRatio
@@ -58,4 +58,6 @@ export default function IngredientsPie({
       </Pie>
     </PieChart>
   );
-}
+};
+
+export default IngredientsPie;
