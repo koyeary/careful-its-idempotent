@@ -163,7 +163,7 @@ This project was built with assistance from [Claude Code](https://claude.com/cla
 - Tested business logic separation
 - Pragmatic UI component design
 
-## See the prompt record at: PROMPTS.md
+See the prompt record at: [PROMPTS.md](https://github.com/koyeary/careful-its-idempotent/blob/main/PROMPTS.md)
 
 ## 📄 License
 
