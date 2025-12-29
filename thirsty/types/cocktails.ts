@@ -1,4 +1,3 @@
-// types/cocktails.ts
 export interface CocktailApi {
   idDrink: string;
   strDrink: string;
@@ -11,7 +10,7 @@ export interface CocktailApi {
 export interface Ingredient {
   name: string;
   rawMeasure: string | null;
-  amountForRatio?: number; // standardized numeric (e.g., in ml or oz)
+  amountForRatio?: number; // standardized amount for ratio calculations
 }
 
 export interface Cocktail {

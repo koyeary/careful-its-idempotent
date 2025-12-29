@@ -1,10 +1,10 @@
-// lib/parseIngredients.ts
 const UNIT_TO_ML: Record<string, number> = {
   oz: 29.5735,
   cl: 10,
   cup: 240,
   tbsp: 15,
   tsp: 5,
+  dash: 0.5,
 };
 
 function parseFraction(str: string): number | null {

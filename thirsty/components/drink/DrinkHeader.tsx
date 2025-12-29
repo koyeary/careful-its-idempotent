@@ -4,24 +4,23 @@ import Image from "next/image";
 interface DrinkHeaderProps {
   name: string;
   category?: string;
-  imageUrl?: string;
+  image?: string;
   alcoholic?: string;
 }
 
 const DrinkHeader: React.FC<DrinkHeaderProps> = ({
-  name,
-  category,
-  imageUrl,
-  alcoholic,
+  drink: { name, category, image, alcoholic },
 }) => {
   return (
-    <header>
-      <h1>{name}</h1>
-      {imageUrl && <Image src={imageUrl} alt={name} />}
-      <div>
-        {category && <span>{category}</span>}
-        {alcoholic && <span>{alcoholic}</span>}
-      </div>
+    <header className="mb-6 flex flex-col items-center">
+      <Image
+        src={image}
+        alt={name}
+        width={160}
+        height={160}
+        className="rounded-full object-cover mt-7.5"
+      />
+      <h1 className="mt-5 text-xl font-bold">{name}</h1>
     </header>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import DrinkListItem from "./DrinkListItem";
 import type { Cocktail } from "@/types/cocktails";
+import { Martini } from "lucide-react";
 
 interface DrinkListProps {
   drinks: Cocktail[];
@@ -16,7 +17,9 @@ const DrinkList: React.FC<DrinkListProps> = ({
   if (loading) {
     return (
       <div className="mt-4 text-center text-gray-500">
-        <p>Loading cocktails...</p>
+        <p>
+          <Martini className="animate-spin" /> Loading cocktails...
+        </p>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { getPastelColors } from "../../lib/colors";
 
 interface Ingredient {
   name: string;
@@ -13,56 +14,29 @@ interface IngredientsLegendProps {
 const IngredientsLegend: React.FC<IngredientsLegendProps> = ({
   ingredients,
 }) => {
-  // Generate pastel colors for ingredients
-  const generatePastelColor = (seed: string): string => {
-    let hash = 0;
-    for (let i = 0; i < seed.length; i++) {
-      hash = seed.charCodeAt(i) + ((hash << 5) - hash);
-    }
-
-    // Generate pastel colors by using high lightness and low saturation
-    const hue = Math.abs(hash % 360);
-    const saturation = 60 + Math.abs(hash % 20); // 60-80%
-    const lightness = 75 + Math.abs(hash % 10); // 75-85%
-
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-  };
-
   //useMemo to avoid regenerating colors (and thus keep colors consistent) on every render
-  const ingredientsWithColors = useMemo(() => {
+  const legendColors = useMemo(() => {
     return ingredients.map((item) => ({
       ...item,
-      color: item.color || generatePastelColor(item.name),
+      color: getPastelColors(ingredients.length)[ingredients.indexOf(item)],
     }));
   }, [ingredients]);
 
   return (
-    <div style={{ margin: "20px" }}>
-      <h3 style={{ fontSize: "17px", marginBottom: "12px" }}>Ingredients</h3>
-      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-        {ingredientsWithColors.map((item, index) => (
-          <li
-            key={index}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "10px",
-              fontSize: "17px",
-            }}
-          >
+    <div className="m-5">
+      <h3 className="mb-5 ml-5 text-[17px] font-bold">Ingredients: </h3>
+      <ul className="list-none p-0 m-5">
+        {legendColors.map((item, index) => (
+          <li key={index} className="flex items-center mb-2 text-[17px]">
             <span
+              className="inline-block w-5 h-5 rounded mr-2 shrink-0"
               style={{
                 backgroundColor: item.color,
-                display: "inline-block",
-                width: "20px",
-                height: "20px",
-                borderRadius: "3px",
-                marginRight: "10px",
-                flexShrink: 0,
               }}
             />
-            <span style={{ wordWrap: "break-word", flex: 1 }}>
-              <strong>{item.name}</strong>: {item.measure}
+
+            <span className="wrap-break-word flex-1">
+              {item.name} {item.rawMeasure && `(${item.rawMeasure.trim(" ")})`}
             </span>
           </li>
         ))}

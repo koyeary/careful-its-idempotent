@@ -1,61 +1,61 @@
-import React from 'react';
+"use client";
 
-interface Ingredient {
-  name: string;
-  measure: string;
-  percentage?: number;
-  color?: string;
-}
+import { Ingredient } from "@/types/cocktails";
+import { PieChart, Pie, Cell } from "recharts";
+import { getPastelColors } from "@/lib/colors";
 
-interface IngredientsPieProps {
+export default function IngredientsPie({
+  ingredients,
+}: {
   ingredients: Ingredient[];
-}
+}) {
+  if (!ingredients.length) return null;
 
-const IngredientsPie: React.FC<IngredientsPieProps> = ({ ingredients }) => {
-  const calculateSlices = () => {
-    let currentAngle = 0;
-    const slices = ingredients.map((ingredient, index) => {
-      const percentage = ingredient.percentage || 100 / ingredients.length;
-      const angle = (percentage / 100) * 360;
-      const slice = {
-        ...ingredient,
-        startAngle: currentAngle,
-        endAngle: currentAngle + angle,
-        percentage
-      };
-      currentAngle += angle;
-      return slice;
-    });
-    return slices;
-  };
+  // Separate ingredients with and without valid amountForRatio
+  const withRatio = ingredients.filter(
+    (ing) => ing.amountForRatio && !isNaN(ing.amountForRatio)
+  );
+  const withoutRatio = ingredients.filter(
+    (ing) => !ing.amountForRatio || isNaN(ing.amountForRatio)
+  );
 
-  const slices = calculateSlices();
+  // Calculate total amount from ingredients with ratio
+  const totalWithRatio = withRatio.reduce(
+    (sum, ing) => sum + (ing.amountForRatio || 0),
+    0
+  );
+
+  // Calculate remaining portion for ingredients without ratio
+  const remainingPortion = Math.max(0, 100 - totalWithRatio);
+  const portionPerUnknown =
+    withoutRatio.length > 0 ? remainingPortion / withoutRatio.length : 0;
+
+  // Build final data array with calculated values
+  const pieData = ingredients.map((ing) => {
+    const hasValidRatio = ing.amountForRatio && !isNaN(ing.amountForRatio);
+    return {
+      name: ing.name,
+      value: hasValidRatio ? ing.amountForRatio : portionPerUnknown,
+    };
+  });
 
   return (
-    <div>
-      <svg viewBox="0 0 200 200" width="200" height="200">
-        {slices.map((slice, index) => {
-          const startAngle = (slice.startAngle - 90) * (Math.PI / 180);
-          const endAngle = (slice.endAngle - 90) * (Math.PI / 180);
-          const x1 = 100 + 100 * Math.cos(startAngle);
-          const y1 = 100 + 100 * Math.sin(startAngle);
-          const x2 = 100 + 100 * Math.cos(endAngle);
-          const y2 = 100 + 100 * Math.sin(endAngle);
-          const largeArc = slice.percentage > 50 ? 1 : 0;
-
-          return (
-            <path
-              key={index}
-              d={`M 100 100 L ${x1} ${y1} A 100 100 0 ${largeArc} 1 ${x2} ${y2} Z`}
-              fill={slice.color || `hsl(${index * 360 / ingredients.length}, 70%, 60%)`}
-              stroke="#fff"
-              strokeWidth="2"
-            />
-          );
-        })}
-      </svg>
-    </div>
+    <PieChart width={200} height={200} className="m-5">
+      <Pie
+        dataKey="value"
+        data={pieData}
+        cx={80}
+        cy={80}
+        outerRadius={60}
+        paddingAngle={1}
+      >
+        {ingredients.map((entry, index) => (
+          <Cell
+            key={`cell-${index}`}
+            fill={getPastelColors(ingredients.length)[index]}
+          />
+        ))}
+      </Pie>
+    </PieChart>
   );
-};
-
-export default IngredientsPie;
+}
